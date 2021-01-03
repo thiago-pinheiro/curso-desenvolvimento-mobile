@@ -4,9 +4,13 @@ import Header from './components/Header'
 function App() {
   return (
     <>
-      <Header/>
-      <Header/>
-      <Header/>
+      <Header title="React">
+        <ul>
+          <li>Componentização</li>
+          <li>Propriedades</li>
+        </ul>
+      </Header>
+
     </>
   )
 }
