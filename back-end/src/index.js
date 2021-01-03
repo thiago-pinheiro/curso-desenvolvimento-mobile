@@ -1,13 +1,15 @@
 const {request, response} = require("express")
 const express = require("express") //importamos
+const cors = require("cors") //importamos
 const app = express() //atribuimos as funções a variavel
 const {uuid} = require("uuidv4")
 
+app.use(cors())
 app.use(express.json())
 
 //query paramms(listar, filtrar as minhas informções)
 //route params(identificar recursos -> atualizar e deletar)
-//request body(criara ou editar um recurso -> JSON)
+//request body(criar ou editar um recurso -> JSON)
 
 //exemplo de query
 //http://localhost:3333/users?search=chris
