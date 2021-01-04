@@ -12,9 +12,16 @@ function App() {
     })
   }, {})
 
-  function handleAddProject(){ 
+  async function handleAddProject(){ 
    
-    setProjects([ ...projects, 'Projeto criado em: ${Date.now()}'])
+    //([ ...projects, 'Projeto criado em: ${Date.now()}'])
+    const response = await api.post('projeto', {
+      title: "Projeto estático",
+      dev: "Samuel"
+    })
+
+    const projeto = response.data
+    setProjects([ ...projects, projeto])
 
   }
 
