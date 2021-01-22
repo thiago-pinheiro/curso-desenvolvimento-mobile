@@ -1,26 +1,92 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, StatusBar, FlatList } from 'react-native';
+import api from './src/services/api';
 
 export default function App() {
+
+    const [projects, setProjects] = useState([])
+
+    useEffect(()=>{
+      api.get('projeto').then(response => {
+        console.log(response.data)
+        setProjects(response.data)
+      })
+    }, [])
+
   return (
-    <View style={styles.container}>
-      <Text style ={styles.titulo}>Olá Planetinha!</Text>
-      <StatusBar style="auto" />
+    <>
+    <StatusBar barStyle='light-content' backgroundColor='#0c94ac' />
+    <View style={styles.div}>
+      <Text style={styles.title}>DevInDev</Text>
+      <Text style={styles.description}>Developers In development</Text>
+      
+      <Text style={styles.titleProjects}>Projetos:</Text>
+
+    <FlatList
+      style={styles.projectList}
+      data={projects}
+      KeyExtractor={(project) => project.id}
+      renderItem={({ item: project }) => (
+        <Text style={styles.project} key={project.id}>
+          {project.title}
+        </Text>
+      )}
+
+    />
+
+    {/*<View style={styles.projects}>
+      <Text style={styles.titleProjects}>Projetos:</Text>
+      {projects.map((project) => (
+        <Text style={styles.project} key={project.id}>
+          {project.title}
+        </Text>
+      ))}
+
+      </View>8*/}
+
     </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  div: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  titulo:{
+  title: {
+    color: '#0c94ac',
+    fontSize: 60,
+    fontWeight: 'bold',
+    marginTop: 60,
+    
+  }, 
+  description: {
+    color: '#fff',
+    fontSize: 15
+
+  },
+  projects: {
+    marginTop: 40,
+    alignItems: 'center'
+
+  },
+  titleProjects: {
+    color: '#0c94ac',
     fontSize: 30,
-    color: '#000'
+    fontWeight: 'bold',
+    marginTop: 30,
+
+  },
+
+  project: {
+    color: '#fff',
+    fontSize: 18,
+    marginTop: 8,
   }
+
 });
+
